@@ -2,7 +2,7 @@
 <addons>
 <addon
   id="skin.rapier"
-  version="5.7.0"
+  version="5.7.1"
   name="Rapier"
   provider-name="Scarfa, updated by Gade">
   <requires>
@@ -19,7 +19,7 @@
   <extension
     point="xbmc.gui.skin"
     defaultthemename="Textures.xbt"
-    effectslowdown="0.75"
+    effectslowdown="0.20"
     debugging="false"/>
     <res width="1280" height="720" aspect="16:9" default="true" folder="720p"/>
   <extension point="xbmc.addon.metadata">

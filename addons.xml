@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
+<addon
+  id="skin.rapier"
+  version="5.7.0"
+  name="Rapier"
+  provider-name="Scarfa, updated by Gade">
+  <requires>
+    <import addon="xbmc.gui" version="4.0.0"/>
+    <import addon="script.favourites" version="4.0.9"/>
+	<import addon="script.artistslideshow" version="1.6.5"/>
+    <import addon="service.skin.widgets" version="0.0.29"/>
+	<import addon="script.randomandlastitems" version="2.2.1"/>
+    <import addon="script.artwork.downloader" version="12.0.28"/>
+	<import addon="script.tv.show.next.aired" version="6.0.10"/>
+	<import addon="script.globalsearch" version="1.1.1"/>
+	<import addon="script.grab.fanart" version="0.13.0"/>
+  </requires>
+  <extension
+    point="xbmc.gui.skin"
+    defaultthemename="Textures.xbt"
+    effectslowdown="0.75"
+    debugging="false"/>
+    <res width="1280" height="720" aspect="16:9" default="true" folder="720p"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Rapier skin by Scarfa, updated by Gade.</summary>
+    <description lang="en">The goal is to provide a simple to use but clean and elegant interface that focuses on efficiency when browsing your media. Important considerations are put on usability, performance, and providing the user with flexibility when it comes to customization. Rapier tries to support all the latest features XBMC has to offer as long as it fits in with the skin's design goals.</description>
+    <disclaimer></disclaimer>
+    <platform>all</platform>
+  </extension>
+</addon>
+</addons>

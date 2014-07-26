@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window id="3001">
+	<onload condition="!IsEmpty(ListItem.TvShowTitle)">SetProperty("TvTunesSupported", "TvShows")</onload>
+	<onload condition="IsEmpty(ListItem.TvShowTitle)">SetProperty("TvTunesSupported", "Movies")</onload>
+	<onload condition="!Skin.HasSetting(ActivateTvTunes) + System.HasAddon(script.tvtunes)">XBMC.RunScript(script.tvtunes,backend=True)</onload>
+	<defaultcontrol always="true">51</defaultcontrol>
+	<allowoverlay>yes</allowoverlay>
+	<include>ControlsOpenCloseAnim</include>
+	
+	<controls>
+		<control type="group">
+			<include condition="[[!IsEmpty(Skin.String(CustomMoviesBGPath)) + [Skin.String(CustomMoviesBGType,2) | Skin.String(CustomMoviesBGType,3)]] 
+			| Skin.String(CustomMoviesBGType,4)] + Skin.HasSetting(ApplyAllMoviesCustomBG)">BackgroundMovies</include>
+			<include condition="[[!IsEmpty(Skin.String(CustomTVShowsBGPath)) + [Skin.String(CustomTVShowsBGType,2) | Skin.String(CustomTVShowsBGType,3)]] 
+			| Skin.String(CustomTVShowsBGType,4)] + Skin.HasSetting(ApplyAllTVShowsCustomBG)">BackgroundTVShows</include>
+			<include>BackgroundVideoFanart</include>
+			<include condition="!Skin.HasSetting(DisableVideoPlayingBG)">BackgroundVideoPlaying</include>
+			<include condition="!Skin.HasSetting(DisableMusicPlayingBG)">BackgroundMusicPlaying</include>
+			<include>BackgroundOpenCloseAnim</include>
+		</control>
+		
+		<control type="group" id="500">
+			<include>MediaViewOpenCloseAnim</include>
+			
+			<control type="image">
+				<posx>30</posx>
+				<posy>106</posy>
+				<width>755</width>
+				<height>525</height>
+				<texture border="7">panels/content-panel.png</texture>
+				<include>PanelFadeAnim</include>
+			</control>			
+			
+			<control type="group">
+				<description>Cover</description>
+				<posx>840</posx>
+				<posy>150</posy>
+					
+				<control type="image">
+					<description>Cover</description>
+					<width>400</width>
+					<height>400</height>
+					<texture background="true">$INFO[ListItem.Icon]</texture>
+					<bordertexture border="11">covers/cover-case-curved-big-focus.png</bordertexture>
+					<bordersize>14</bordersize>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<fadetime>IconCrossfadeTime</fadetime>	
+				</control>
+				
+				<control type="image">
+					<description>Cover Reflection</description>
+					<posy>395</posy>
+					<width>400</width>
+					<height>400</height>
+					<texture background="true" flipy="true" diffuse="views/reflection.png">$INFO[ListItem.Icon]</texture>
+					<bordertexture flipy="true" border="11" diffuse="views/reflection.png">covers/cover-case-curved-big-focus.png</bordertexture>
+					<bordersize>14</bordersize>
+					<aspectratio aligny="top">keep</aspectratio>
+					<fadetime>IconCrossfadeTime</fadetime>
+				</control>
+			</control>	
+			
+			<control type="list" id="51">
+				<posx>40</posx>
+				<posy>110</posy>
+				<width>720</width>
+				<height>518</height>
+				<onleft>987</onleft>					
+				<onright>903</onright>
+				<onup>987</onup>
+				<ondown>51</ondown>
+				<viewtype label="31105">list</viewtype>
+				<pagecontrol>903</pagecontrol>
+				<scrolltime tween="sine" easing="inout">300</scrolltime>				
+				<itemlayout height="37">
+					<control type="image">
+						<posx>0</posx>
+						<width>720</width>
+						<height>37</height>	
+						<texture border="0,0,10,2">views/list-separator.png</texture>
+						<aspectratio>stretch</aspectratio>
+					</control>
+					<control type="label">
+						<description>Label</description>
+						<posx>35</posx>
+						<posy>16</posy>
+						<width>580</width>
+						<font>ListFont</font>
+						<textcolor>ListColor</textcolor>
+						<shadowcolor>ShadowColor</shadowcolor>
+						<aligny>center</aligny>				
+						<info>ListItem.Label</info>
+					</control>					
+					<control type="label">
+						<description>Label2</description>
+						<posx>675</posx>
+						<posy>16</posy>
+						<width>150</width>
+						<font>ListFont2</font>
+						<textcolor>ListColor3</textcolor>
+						<shadowcolor>ShadowColor</shadowcolor>
+						<align>right</align>
+						<aligny>center</aligny>				
+						<info>ListItem.Label2</info>
+						<visible>!IsEmpty(ListItem.Label2)</visible>
+					</control>					
+					<control type="image">
+						<description>Quality</description>
+						<posx>5</posx>
+						<posy>6</posy>
+						<width>24</width>
+						<height>24</height>
+						<texture background="true">$VAR[VideoQualityOverlayUnwatched]</texture>
+						<aspectratio>stretch</aspectratio>
+						<visible>!StringCompare(ListItem.Overlay,OverlayWatched.png)</visible>
+						<include>ListViewOverlayFadeAnim</include>
+					</control>	
+					<control type="image">
+						<description>Quality</description>
+						<posx>5</posx>
+						<posy>6</posy>
+						<width>24</width>
+						<height>24</height>
+						<texture background="true">$VAR[VideoQualityOverlayWatched]</texture>
+						<aspectratio>stretch</aspectratio>
+						<visible>StringCompare(ListItem.Overlay,OverlayWatched.png)</visible>
+						<include>ListViewOverlayFadeAnim</include>
+					</control>
+					<control type="image">
+						<description>Watched Partial</description>
+						<posx>690</posx>
+						<posy>6</posy>
+						<width>24</width>
+						<height>24</height>
+						<texture background="true">$VAR[WatchedPartial]</texture>
+						<aspectratio>stretch</aspectratio>
+						<visible>ListItem.IsResumable</visible>
+						<include>ListViewPartialWatchedOverlayFadeAnim</include>
+						<include>ListViewWatchedOverlayFadeAnim</include>
+					</control>	
+					<control type="image">
+						<description>Overlay</description>
+						<posx>690</posx>
+						<posy>6</posy>
+						<width>24</width>
+						<height>24</height>
+						<texture background="true">OverlayWatched.png</texture>
+						<aspectratio>stretch</aspectratio>
+						<include>ListViewOverlayFadeAnim</include>
+						<visible>IntegerGreaterThan(ListItem.PlayCount,0)</visible>
+					</control>	
+				</itemlayout>
+				<focusedlayout height="37">
+					<control type="image">
+						<posx>0</posx>
+						<width>720</width>
+						<height>37</height>	
+						<texture border="0,0,10,2">views/list-separator.png</texture>
+						<aspectratio>stretch</aspectratio>
+					</control>
+					<control type="image">
+						<posx>0</posx>
+						<width>720</width>
+						<height>36</height>	
+						<texture border="4">views/list-focus.png</texture>
+						<aspectratio>stretch</aspectratio>
+						<visible>Control.HasFocus(51)</visible>
+						<include>ListViewSelectFadeAnim</include>
+						<include condition="!Skin.HasSetting(DisableListViewScrollAnim)">ListViewScrollAnim</include>
+					</control>
+					<control type="image">
+						<posx>0</posx>
+						<width>720</width>
+						<height>36</height>	
+						<texture border="4">views/list-alt-focus.png</texture>
+						<aspectratio>stretch</aspectratio>
+						<visible>!Control.HasFocus(51)</visible>
+						<include>ListViewSelectFadeAnim2</include>
+					</control>
+					<control type="group">
+						<include>ListViewFocusAnim</include>
+						<control type="label">
+							<description>Label</description>
+							<posx>35</posx>
+							<posy>16</posy>
+							<width>580</width>
+							<font>ListFont</font>
+							<textcolor>SelectedColor</textcolor>
+							<shadowcolor>ShadowColor</shadowcolor>
+							<aligny>center</aligny>
+							<info>ListItem.Label</info>
+							<scroll>yes</scroll>
+						</control>						
+						<control type="label">
+							<description>Label2</description>
+							<posx>675</posx>
+							<posy>16</posy>
+							<width>150</width>
+							<font>ListFont2</font>
+							<textcolor>ListColor3</textcolor>
+							<shadowcolor>ShadowColor</shadowcolor>
+							<align>right</align>
+							<aligny>center</aligny>				
+							<info>ListItem.Label2</info>
+							<visible>!IsEmpty(ListItem.Label2)</visible>
+						</control>						
+						<control type="image">
+							<description>Quality</description>
+							<posx>5</posx>
+							<posy>6</posy>
+							<width>24</width>
+							<height>24</height>
+							<texture background="true">$VAR[VideoQualityOverlayUnwatched]</texture>
+							<aspectratio>stretch</aspectratio>
+							<visible>!StringCompare(ListItem.Overlay,OverlayWatched.png)</visible>
+						</control>	
+						<control type="image">
+							<description>Quality</description>
+							<posx>5</posx>
+							<posy>6</posy>
+							<width>24</width>
+							<height>24</height>
+							<texture background="true">$VAR[VideoQualityOverlayWatched]</texture>
+							<aspectratio>stretch</aspectratio>
+							<visible>StringCompare(ListItem.Overlay,OverlayWatched.png)</visible>
+						</control>
+						<control type="image">
+							<description>Watched Partial</description>
+							<posx>690</posx>
+							<posy>6</posy>
+							<width>24</width>
+							<height>24</height>
+							<texture background="true">$VAR[WatchedPartial]</texture>
+							<aspectratio>stretch</aspectratio>
+							<visible>ListItem.IsResumable</visible>
+							<include>ListViewPartialWatchedOverlayFadeAnim</include>
+							<include>ListViewWatchedOverlayFadeAnim</include>
+						</control>	
+						<control type="image">
+							<description>Overlay</description>
+							<posx>690</posx>
+							<posy>6</posy>
+							<width>24</width>
+							<height>24</height>
+							<texture background="true">OverlayWatched.png</texture>
+							<aspectratio>stretch</aspectratio>
+							<include>ListViewOverlayFadeAnim</include>
+							<visible>IntegerGreaterThan(ListItem.PlayCount,0)</visible>
+						</control>
+					</control>				
+				</focusedlayout>
+			</control>
+			
+			<control type="group">	
+				<control type="image">
+					<posx>767</posx>
+					<posy>110</posy>
+					<width>14</width>
+					<height>517</height>
+					<texture border="4">controls/scrollbar-background.png</texture>
+				</control>
+				
+				<control type="scrollbar" id="903">
+					<posx>767</posx>
+					<posy>110</posy>
+					<height>517</height>
+					<texturesliderbackground>-</texturesliderbackground>
+					<onleft>51</onleft>
+					<onright>51</onright>
+					<onup>987</onup>
+				</control>
+			</control>
+		</control>
+		
+		<control type="group">
+			<posy>SortLetterOffsetY</posy>
+			<include>SortLetterNotification</include>
+		</control>
+		
+		<control type="group" id="505">
+			<description>Menu Bar Area</description>
+			<posy>MenuBarOffsetY</posy>
+			<include>MenuBarImage</include>
+			<include>MenuBarOpenCloseAnim2</include>
+			<include>VideoExtrasMenuBar</include>
+		</control>
+		
+		<control type="group">
+			<description>Top Bar Area</description>
+			<include>TopBarImage</include>
+			<include>TopBarOpenCloseAnim</include>
+			<include>BreadCrumbVideoExtras</include>
+			<include>Notifications</include>	
+		</control>
+		
+		<control type="group">
+			<description>Bottom Bar Area</description>
+			<posy>BottomPaneOffsetY</posy>	
+			<include>InfoPaneMediaDetails</include>
+			<control type="label">
+				<include>InfoPaneHeadLabel2</include>
+				<label>$INFO[Container.CurrentPage,$LOCALIZE[31946] ]$INFO[Container.NumPages,/,]</label>
+			</control>
+			<control type="image">
+				<posx>582</posx>
+				<posy>-4</posy>
+				<width>116</width>
+				<height>45</height>
+				<texture>$VAR[VideoExtrasLogo]</texture>
+				<aspectratio>keep</aspectratio>
+				<fadetime>400</fadetime>
+				<animation effect="fade" end="90" condition="true">Conditional</animation>
+				<visible>!Skin.HasSetting(DisableTVShowsLogo)</visible>
+			</control>
+			<include>BottomPaneOpenCloseAnim</include>
+		</control>
+	</controls>
+</window>
